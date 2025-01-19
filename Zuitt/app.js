@@ -1,3 +1,4 @@
+console.log("console loaded");
 let board;
 let score = 0;
 let rows = 4;
@@ -11,12 +12,12 @@ let is8192Exist = false;
 function setGame(){
 
     // backEndBoard
-    board=[
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 2048, 2048, 0],
-        [0, 0, 0, 0],
-    ];
+    board = [
+		[2, 4, 2, 4],
+		[4, 2, 4, 2],
+		[2, 4, 2, 4],
+		[4, 2, 4, 2]
+	];
     // loop (for loop) - repeat task
     for(let r = 0; r<rows; r++){
         for(let c=0; c<columns; c++){
@@ -83,7 +84,15 @@ function handleSlide(e){
     }
 }
 setTimeout(() => {
+    if(hasLost()){
+        alert("Game Over! You have lost the game. Game will restart") 
+
+        restartGame();
+        alert("Click any arrow key to restart")
+
+    }else{
     checkWin();
+    }
 }, 100); //delay time in milliseconds
 }
 
@@ -118,12 +127,20 @@ function slideLeft(){
     // console.log("sliding to the left");
     for(let r = 0; r < rows; r++){
         let row = board[r];
+        originalRow = row.slice(); //documents the original tile before sliding
         row = slide(row); //slide([0, 2, 0, 2]) -> [4, 0, 0, 0]
         board[r] = row;
 
         for(let c=0; c<columns; c++){
             let tile = document.getElementById(r.toString() + "-" + c.toString());
             let num = board[r][c];
+
+            if(originalRow[c] !== num && num !==0){
+                tile.style.animation = "slide-from-right 0.3s";
+                setTimeout(() => {
+                    tile.style.animation = "";
+                }, 300)
+            }
             updateTile(tile, num);
         }
     }
@@ -232,4 +249,44 @@ function checkWin(){
         }
     }         
 }
+}
+
+function hasLost(){
+    for (let r = 0; r < rows; r++){
+        for (let c = 0; c < columns; c++){
+            // if the board has an empty tile, false means, the user is not lose yet
+            if(board[r][c] === 0){
+                return false;
+            }
+            const currentTile = board[r][c];
+            
+            // if the board has an same adjecemt tile, false means, the user is not yet lost
+            if(
+                r > 0 && currentTile === board [r-1][c] || //will check it will has a match to the upper adjacent tile
+                r < rows - 1 && currentTile === board [r+1][c] || // will check if it has a match to lower adjacent tile
+                c > 0 && currentTile === board [r][c-1] || 
+                c < columns-1 && currentTile === board[r][c+1]
+            ){
+                return false;
+            }
+        }
+// No empty tile, no possible moves left, meaning true, the user hasLost
+    }
+return true;
+}
+
+function restartGame(){
+    board=[
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+    ];
+    setTwo();
+
+    //or
+
+    // clear the board and remake
+    // document.getElementById("board").innerHTML = '';
+    // setGame();
 }
