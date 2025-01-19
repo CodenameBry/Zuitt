@@ -6,39 +6,29 @@
     <title>2048</title>
 
     <link rel="stylesheet" href="styles.css">
-    
+    <script src="app.js"></script>
 </head>
 <body>
-    <h1>2048</h1>
-    <h2>Created By: Bry</h2>
-    <hr>
-
-    <div id="board">
-
-        <!-- <div class="tile">[r0,c0]</div>
-        <div class="tile">[r0,c1]</div>
-        <div class="tile">[r0,c2]</div>
-        <div class="tile">[r0,c3]</div>
-
-        <div class="tile">[r1,c0]</div>
-        <div class="tile">[r1,c1]</div>
-        <div class="tile">[r1,c2]</div>
-        <div class="tile">[r1,c3]</div>
-
-        <div class="tile">[r2,c0]</div>
-        <div class="tile">[r2,c1]</div>
-        <div class="tile">[r2,c2]</div>
-        <div class="tile">[r2,c3]</div>
-
-        <div class="tile">[r3,c0]</div>
-        <div class="tile">[r3,c1]</div>
-        <div class="tile">[r3,c2]</div>
-        <div class="tile">[r3,c3]</div> -->
-    
-    </div>
-
-    <!-- <script type="text/javasccript" src="app.js"></script> -->
-    <script src="app.js"></script>
+	<div class="container"> <!--added 1-->
+		<h1>2048</h1>
+		<h2>Created By: Topher</h2>
+		<hr id="top-line"> <!--added-->
+		<div class="header-container"> <!--added 2-->
+			<div class="score-container"><!--added 5-->
+				<div class="score-label">Score: </div>
+				<div id="score">0</div>
+			</div> <!--added 5-->
+			<div class="share-button-container"> <!--added 3-->
+				<div class="share-label">Share:</div>
+				<div class="share-icon"> <!--added 4-->
+					<a href="https://www.facebook.com/sharer/sharer.php?u=[deployment-link]" target="_blank"> 
+	                <img src="./images/share_2048-fb.svg">
+	                </a>
+				</div> <!--added 4-->
+			</div> <!--added 3-->
+		</div> <!--added 2-->
+		<div id="board"></div>
+	</div> <!--added 1-->
 </body>
     
 </html>
